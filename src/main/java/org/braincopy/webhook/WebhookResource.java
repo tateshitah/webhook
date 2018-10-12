@@ -17,12 +17,14 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 
+import org.apache.commons.codec.binary.Base64;
+
 /**
  * @author Hiroaki Tateshita
- * @version 0.0.9
+ * @version 0.2.0
  * 
  */
-@Path("/wh")
+@Path("wh")
 public class WebhookResource{
 
     @Context
@@ -43,7 +45,10 @@ public class WebhookResource{
                 final SecretKeySpec keySpec = new SecretKeySpec(consumer_secret.getBytes(), algo);
                 mac.init(keySpec);
                 
-                builder.entity("{\"response_token\":\"sha256=" + mac.doFinal(crc_token.getBytes()) + "\"}");
+                String hash = Base64.encodeBase64String(mac.doFinal(crc_token.getBytes("UTF-8")));
+
+
+                builder.entity("{\"response_token\":\"sha256=" + hash + "\"}");
             
             } catch (NoSuchAlgorithmException e) {
                 builder.entity("{\"mes\": \"contact admin.\"}");
