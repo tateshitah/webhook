@@ -10,6 +10,7 @@ import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import javax.servlet.ServletContext;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
@@ -46,8 +47,7 @@ public class WebhookResource{
                 mac.init(keySpec);
                 
                 String hash = Base64.encodeBase64String(mac.doFinal(crc_token.getBytes("UTF-8")));
-
-
+                System.out.println("come on: "+hash);
                 builder.entity("{\"response_token\":\"sha256=" + hash + "\"}");
             
             } catch (NoSuchAlgorithmException e) {
@@ -62,6 +62,13 @@ public class WebhookResource{
             System.err.println("fail to load properties file");
             e1.printStackTrace();
         }
+        return builder.build();
+    }
+
+    @POST
+    public Response postIt(){
+        ResponseBuilder builder=Response.ok();
+        System.out.println("something posted!");
         return builder.build();
     }
 
