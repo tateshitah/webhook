@@ -66,9 +66,9 @@ public class WebhookResource{
     }
 
     @POST
-    public Response postIt(){
+    public Response postIt(String body){
         ResponseBuilder builder=Response.ok();
-        System.out.println("something posted!");
+        System.out.println("something posted!"+body);
         return builder.build();
     }
 

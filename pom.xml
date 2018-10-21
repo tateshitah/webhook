@@ -4,7 +4,7 @@
   <groupId>org.braincopy</groupId>
   <artifactId>webhook</artifactId>
   <packaging>war</packaging>
-  <version>0.2.2</version>
+  <version>0.2.3</version>
   <name>webhook Maven Webapp</name>
   <url>http://maven.apache.org</url>
   <dependencies>
